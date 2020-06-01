@@ -1,0 +1,23 @@
+name = "DeepViz"
+uuid = "63195aea-0618-4e3f-bed4-5fa69beb2d20"
+authors = ["Adarshkumar712 <Adarshkumar712.ak@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+Augmentor = "02898b10-1f73-11ea-317c-6393d7073e15"
+Flux = "587475ba-b771-5e3f-ad9e-33799f191a9c"
+Images = "916415d5-f1e6-5110-898d-aaa5f9f070e0"
+Metalhead = "dbeba491-748d-5e0e-a39e-b530a07fa0cc"
+PlotUtils = "995b91a9-d308-5afd-9ec6-746e21dbc043"
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
+Zygote = "e88e6eb3-aa80-5325-afca-941959d7151f"
+
+[compat]
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]

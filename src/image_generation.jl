@@ -17,7 +17,7 @@ function (IG::ImageGenerator)(save_dir, img_name = "generated"; niters::Int = 15
   local mean_img = Float32.(reshape([0.485, 0.456, 0.406], 1, 1, 3, 1)) |> gpu
   for i in 1:niters
     IG.img .= IG.img .- mean_img
-    _, back = Zygote.pullback(IG.model,IG.img)
+    outputs, back = Zygote.pullback(IG.model,IG.img)
     # This should be removed once the issue with pullback is resolved
     outputs = model(IG.img)
     loss = outputs .* mask

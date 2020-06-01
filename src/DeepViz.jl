@@ -1,4 +1,4 @@
-module vizulaization
+module DeepViz
 
 using PlotUtils
 using Plots
@@ -15,5 +15,6 @@ include("vanilla_gradient.jl")
 include("gradcam.jl")
 include("guided_backprop.jl")
 include("smooth_grad.jl")
+include("image_generation.jl")
 
 end
