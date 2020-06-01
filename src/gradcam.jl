@@ -50,8 +50,9 @@ end
 function viz_gradcam(img, model, layer; top_k=1)
     model_ = model[1:end-1]
     tracker = Dict()
-    _, back = Zygote.pullback(x -> tracked_model_gc(x, model_, layer, tracker), img)
-    
+    set_training(false)
+    preds, back = Zygote.pullback(x -> tracked_model_gc(x, model_, layer, tracker), img)
+    set_training(true)
     probs = softmax(preds)
     prob, inds = get_topk(probs, k=top_k)
     grads = []

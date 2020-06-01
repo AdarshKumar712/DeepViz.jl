@@ -1,5 +1,7 @@
-using PlotUtils
-using Plots
+
+im2arr_rgb(img) = permutedims(float.(channelview(imresize(img, (224, 224)))), (3, 2, 1))
+
+im_mean = reshape([0.485, 0.456, 0.406], 1, 1, 3)
 
 function one_hot_encode(preds, idx)
   one_hot = zeros(eltype(preds), size(preds)[1], 1)
@@ -38,10 +40,6 @@ function positive_negative_saliency(gradient)
   neg_saliency = max.(zero(gradient), -gradient) ./ maximum(-gradient)
   (pos_saliency, neg_saliency)
 end
-
-im2arr_rgb(img) = permutedims(float.(channelview(imresize(img, (224, 224)))), (3, 2, 1))
-
-im_mean = reshape([0.485, 0.456, 0.406], 1, 1, 3)
 
 function image_to_arr(img; preprocess = true)
   local x = img
@@ -100,3 +98,9 @@ function apply_colormap(org_img, activation_map; map_alpha=0.4, process_img=true
     x = org_img*0.7 + heat_map*0.3
     return arr2rgb_normalize(x), heatmap
 end
+
+function set_training(state) 
+    Flux.istraining() = state
+    Zygote.@adjoint Flux.istraining() = state, _ -> nothing
+end
+
