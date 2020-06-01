@@ -2,9 +2,9 @@
 
 function viz_backprop(img, model; top_k=1, target_based=false, target_index=-1)
     model_ = model[1:end-1] |> gpu
-    set_training(false)
+    set_training_false()
     preds, back = Zygote.pullback(model_, img)
-    set_training(true)
+    set_training_true()
     probs = softmax(preds)
     prob, inds = get_topk(probs, k=top_k)
     grads = []

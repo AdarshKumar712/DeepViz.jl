@@ -17,9 +17,9 @@ function (IG::ImageGenerator)(save_dir, img_name = "generated"; niters::Int = 15
   local mean_img = Float32.(reshape([0.485, 0.456, 0.406], 1, 1, 3, 1)) |> gpu
   IG.img .= IG.img .- mean_img
   for i in 1:niters
-    set_training(false)
+    set_training_false()
     outputs, back = Zygote.pullback(IG.model,IG.img)
-    set_training(true)
+    set_training_true()
     loss = outputs .* mask
     grads = back(loss)
     println("Loss after Iteration $i is $(sum(loss)) and Probability is $(softmax(outputs)[IG.target_class, 1])")
