@@ -108,19 +108,19 @@ function load_image(path, resize = false; size_save = true)
 end
 
 """
-     generate_image(x; resize_original=false, original_size=Nothing)
+     generate_image(x; resize_original=false, custom_size=Nothing)
 
-Save the image as an RGB image defined the by the array `x`. If `resize_original` is set to be true, then the image can be resized to the `original_size`. If not provided explicitly, then the image is resized to the `original_size` of the image saved while loading the image. 
+Save the image as an RGB image defined the by the array `x`. If `resize_original` is set to be true, then the image can be resized to the `custom_size`. If not provided explicitly, then the image is resized to the `original_size` of the image saved while loading the image or the default one(ie. (224, 224)) 
 """
-function generate_image(x; resize_original = false, original_size=Nothing)
+function generate_image(x; resize_original = false, custom_size=Nothing)
   x = reshape(x, size(x)[1:3]...)/255 |> cpu
   x = x .+ im_mean
   x = permutedims(x, [3,2,1])
   x .-= minimum(x)
   x ./= maximum(x)
   if resize_original
-    if original_size!=Nothing
-        return imresize(colorview(RGB, x), original_size)
+    if custom_size!=Nothing
+        return imresize(colorview(RGB, x), custom_size)
     else
         global original_size
         return imresize(colorview(RGB, x), original_size)
