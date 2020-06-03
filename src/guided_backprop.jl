@@ -1,6 +1,6 @@
 include("vanilla_gradient.jl")
 
-############################################################# Guided Backpropagation ######################################
+# Guided Backprop
 
 function change_activation(model::Metalhead.InceptionBlock, activation)
     path_1 = Conv(activation, model.path_1.weight, model.path_1.bias, model_path_1.stride, model.path_1.pad, model.path_1.dilation)
@@ -60,13 +60,21 @@ end
 
 @adjoint guided(x) = guided(x), c̄ -> (Int.(x .> zero(x)) .* max.(zero(c̄), c̄),)
 
+"""
+    viz_guidedbackprop(img, model; top_k=1, target_based=false, target_index=-1)
+
+In this method of Gradient visualization, the backpropagation of RELU activation function are overridden (so called Guided RELU) in such a way that only the non-negative gradients are backpropagated. Here, the guided RELU is applied onto the input gradients which stands as the main difference from the `viz_deconvolution`. Once the activation function is overridden, the gradient is evaluated here using the `viz_backprop` function.
+
+Note: The function currently doesn't support ResNet type models.
+See also: [`viz_backprop`](@ref), [`viz_deconvolution`](@ref)
+"""
 function viz_guidedbackprop(img, model; top_k=1, target_based=false, target_index=-1)
   model1 = change_activation(model, guided)
   print(model1)
   viz_backprop(img, model1; top_k=top_k, target_based=target_based, target_index=target_index)
 end
 
-############################################################ DeconvNet ###########################################
+# DeconvNet
 
 function deconv(x)
     max.(zero(x),x)
@@ -74,6 +82,14 @@ end
 
 @adjoint deconv(x) = deconv(x), c̄ -> (max.(zero(c̄), c̄),)
 
+"""
+    viz_deconvolution(img, model; top_k=1, target_based=false, target_index=-1)
+
+In this method of Gradient visualization, the backpropagation of RELU activation function are overridden (so called Guided RELU) in such a way that only the non-negative gradients are backpropagated. Here, the guided RELU is applied onto the `output` gradients which stands as the main difference from the `viz_guidedbackprop`. Once the activation function is overridden, the gradient is evaluated here using the `viz_backprop` function.
+
+Note: The function currently doesn't support ResNet type models.
+See also: [`viz_backprop`](@ref), [`viz_guidedbackprop`](@ref)
+"""
 function viz_deconvolution(img, model; top_k=1, target_based=false, target_index=-1)
   model = change_activation(model, deconv)
   viz_backprop(img, model; top_k=top_k, target_based=target_based, target_index=target_index)

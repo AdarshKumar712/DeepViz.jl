@@ -1,5 +1,18 @@
-########################################################### Save Gradcam ################################################
+# Save Gradcam
 
+"""
+    save_gradcam(gradient, original_image_path, grad_file_name, heatmap_file_name, combined_file_name)
+
+Function to save the gradient calculated using `gradcam` as a `gray image`, `gradient heatmap` and the `combined heatmap` with different transparency.
+
+# Arguments
+ - `gradient`: Gradient calculated using the `viz_gradcam` function
+ - `original_image_path`: Path to the original image file, for which the gradient is calculated.
+ - `grad_file_name`: Filename with path, to which the gradient image is to be saved as a `gray` image
+ - `heatmap_file_name`: Filename to save the gradient heatmap
+ - `combined_file_name`: Filename to save the gradient the combined heatmap with original image.
+
+"""
 function save_gradcam(gradient, original_image_path, grad_file_name, heatmap_file_name, combined_file_name)
   gradient = max.(gradient, zero(gradient))
   gradient = permutedims((gradient .- minimum(gradient))/(maximum(gradient) - minimum(gradient)), [3, 2, 1])
@@ -32,7 +45,7 @@ function save_gradcam(gradient, original_image_path, grad_file_name, heatmap_fil
   end
 end
 
-################################################################## GradCAM ###########################################
+# GradCAM
 
 normalize_grad(grad) = grad / (sqrt(mean(abs2.(grad))) + eps())
 
@@ -47,6 +60,13 @@ function tracked_model_gc(x, model, layer, tracker)
     model[layer+1:end](Zygote.hook(x->save_gradient(x, tracker), x)) |>gpu
 end
 
+"""
+    viz_gradcam(img, model, layer; top_k=1)
+
+Layer attribution method that computes the gradients of the target output with respect to the given `layer`, averages for each output channel (dimension 2 of output), and multiplies the average gradient for each channel by the layer activations. The results are summed over all channels.
+
+It returns an array of tuples of (`gradCAM`, `prediction_probability`, `class_index`) for `top_k` predicted classes.
+"""
 function viz_gradcam(img, model, layer; top_k=1)
     model_ = model[1:end-1]
     tracker = Dict()
@@ -66,12 +86,21 @@ function viz_gradcam(img, model, layer; top_k=1)
     grads
 end
 
-############################################################# Guided GradCAM #############################################
+# Guided GradCAM
 
+"""
+    viz_guidedgradcam(img, model, layer; top_k=1)
+
+It computes the element-wise product of guided backpropagation attributions (evaluated using `viz_guidedbackprop`) with resized (layer) GradCAM attributions (computed using `viz_gradcam`). GradCAM attributions are computed with respect to a given `layer`, and attributions are resized to match the input size.
+
+It returns an array of tuples of (`guidedgradcam`, `prediction_probability`, `class_index`) for `top_k` predicted classes.
+
+Also see: [`viz_guidedbackprop`](@ref), [`viz_guidedgradcam`](@ref).
+"""
 function viz_guidedgradcam(img, model, layer; top_k=1)
     # Ideally we should not be doing the forward pass twice
-    gcam_grads = viz_gradcam(img, model, top_k=1)
-    backprop_grads = viz_guidedbackprop(img, model, top_k=1)
+    gcam_grads = viz_gradcam(img, model, layer, top_k=1)
+    backprop_grads = viz_guidedbackprop(img, model; top_k=1)
     grads = []
     for i in 1:top_k
       normalized_camgrads = gcam_grads[i][1] .- minimum(gcam_grads[i][1])
