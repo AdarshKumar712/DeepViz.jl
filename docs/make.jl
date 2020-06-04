@@ -4,7 +4,13 @@ makedocs(;
     modules=[DeepViz],
     format=Documenter.HTML(),
     pages=[
-        "Home" => "index.md",
+        "About" => "index.md",
+        "Getting Started" => "gs.md",
+        "Insights" => "insights.md",
+        "Algorithms Reference" => "api.md",
+        "Utility Function" => "utility.md",
+        "Usage" => "usage.md",
+        "FAQs" => "faq.md"
     ],
     repo="https://github.com/AdarshKumar712/DeepViz.jl/blob/{commit}{path}#L{line}",
     sitename="DeepViz.jl",
