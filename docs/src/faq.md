@@ -6,4 +6,4 @@ Coming Soon........
 
 ## Custom FAQ
 
-If you have any question regarding this package or usage, you can post that as issue on the Git Repo along with the TAG `FAQ`. It will be tried to answer that question as soon as possible.
+If you have any question regarding this package or usage, you can post that as issue on the Git Repo along with the tag `FAQ`. It will tried to respond to the query as soon as possible.

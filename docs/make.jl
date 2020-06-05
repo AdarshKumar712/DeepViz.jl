@@ -7,7 +7,7 @@ makedocs(;
         "About" => "index.md",
         "Getting Started" => "gs.md",
         "Insights" => "insights.md",
-        "Algorithms Reference" => "api.md",
+        "API Reference" => "api.md",
         "Utility Function" => "utility.md",
         "Usage" => "usage.md",
         "FAQs" => "faq.md"

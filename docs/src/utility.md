@@ -1,6 +1,6 @@
-## Utility Functions
+# Utility Functions
 
-This section provide documentation reference to various Utility functions available with the `DeepViz` package.
+This section provide documentation reference to various Utility functions available with the `DeepViz` package. These utility function allows loading of image, changing image to array, saving the gradients as heatmaps and more.
 
 ```@docs
 DeepViz.image_to_arr

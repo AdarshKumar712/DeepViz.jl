@@ -17,10 +17,10 @@ To install `DeepViz`, you need to fill in the following code into the Julia Prom
 
 Here are some of the tutorials which might be helpful to you with respect to using this package:
 
-!!!!!  TODO : Add links to the tutorial blogs
+Coming Soon!!!!!!
 
 Moreovers to get a better understanding of various functions in this package and their usage, check the `Usage` section of the documentation.
 
 ## API Reference
 
-For an in-depth API reference of various DeepViz internals, checkout the `Algorithms Reference` section
+For an in-depth API reference of various DeepViz internals, checkout the `API Reference` section
