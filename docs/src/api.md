@@ -8,7 +8,7 @@ The package provides easy implementation of various algorithms, to facilitate mo
 DeepViz.viz_backprop
 DeepViz.viz_guidedbackprop
 DeepViz.viz_deconvolution
-DeepViz.viz_integrated_gradients
+DeepViz.viz_integrated_gradient
 DeepViz.grad_times_image
 ```
 

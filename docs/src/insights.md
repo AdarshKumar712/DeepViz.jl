@@ -16,7 +16,7 @@ The algorithms mainly consist of two steps:
 
 Once gradients are calculated for a particular class, these gradients can then be transformed into normalized heatmap, for better visualization
 
-Useful Function(s): [`viz_backprop`](@ref), [`save_gradient_images`](@ref).
+Useful Function(s): [`viz_backprop`](@ref DeepViz.viz_backprop), [`save_gradient_images`](@ref DeepViz.save_gradient_images).
 
 #### Guided Backpropagation and Deconvolution
 
@@ -26,7 +26,7 @@ For more details, check the original papers:
 * [`Striving for Simplicity: The All Convolutional Net`](https://arxiv.org/abs/1412.6806)
 * [`Sanity Checks for Saliency Maps`](https://arxiv.org/abs/1810.03292)
 
-Useful Function(s): [`viz_guidedbackprop`](@ref), [`viz_deconvolution`](@ref)
+Useful Function(s): [`viz_guidedbackprop`](@ref DeepViz.viz_guidedbackprop), [`viz_deconvolution`](@ref DeepViz.viz_deconvolution)
 
 #### Integrated Gradients
 
@@ -39,13 +39,13 @@ The algorithm consist of following steps:
 
 For more reference, check the original paper: [Original Paper](https://arxiv.org/abs/1703.01365)
 
-Useful Function(s): [`viz_integrated_gradients`](@ref)
+Useful Function(s): [`viz_integrated_gradient`](@ref DeepViz.viz_integrated_gradient)
 
 #### Gradient x Image
 
 Gradient x Image is an extension of the saliency approach (vanilla gradient), taking the gradients of the output with respect to the input and multiplying by the input feature values. One intuition for this approach considers a linear model. the gradients are simply the coefficients of each input, and the product of the input with a coefficient corresponds to the total contribution of the feature to the linear model's output.
 
-Useful Function(s): [`grad_times_image`](@ref)
+Useful Function(s): [`grad_times_image`](@ref DeepViz.grad_times_image)
 
 ## Layer Attribution
 
@@ -57,7 +57,7 @@ GradCAM or Gradient weighted Class Activation Maximization uses the gradients of
 
 For more details, refer to the paper: [`Original Paper`](https://arxiv.org/abs/1610.02391)
 
-Useful Function(s): [`viz_gradcam`](@ref), [`save_gradcam`](@ref)
+Useful Function(s): [`viz_gradcam`](@ref DeepViz.viz_gradcam), [`save_gradcam`](@ref DeepViz.save_gradcam)
 
 #### Guided GradCAM
 
@@ -67,7 +67,7 @@ Guided GradCAM was proposed by the authors of GradCAM as a method to combine the
 
 For more details, refer to the paper: [`Original Paper`](https://arxiv.org/abs/1610.02391)
 
-Useful Function(s): [`viz_guidedgradcam`](@ref), [`save_gradcam`](@ref)
+Useful Function(s): [`viz_guidedgradcam`](@ref DeepViz.viz_guidedgradcam), [`save_gradcam`](@ref DeepViz.save_gradcam)
 
 ## Others
 
@@ -79,12 +79,12 @@ SmoothGrad is a simple method that can help visually sharpen gradient-based sens
 
 For more details, refer to the original paper: [`Original Image`](https://arxiv.org/pdf/1706.03825.pdf)
 
-Useful Function(s) : [`smooth_grad`](@ref)
+Useful Function(s) : [`smooth_grad`](@ref DeepViz.smooth_grad)
 
 #### Image Generator
 
 This algorithms helps to visualise what type of input image maximizes the probability of `target class`. The idea behind Image Generator is simple in hindsight - Generate an input image that maximizes the model output activations for the `target class`.
 
-Useful Function(s): [`ImageGenerator`](@ref)
+Useful Function(s): [`ImageGenerator`](@ref DeepViz.ImageGenerator)
 
 
