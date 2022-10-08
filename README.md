@@ -7,7 +7,7 @@
 A flux based package for CNN visualization using various methods of visualization
 
 ## Status
-WIP
+Not Yet Registered
 
 ## References
 * https://github.com/avik-pal/CNNVisualize.jl
